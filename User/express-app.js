@@ -6,23 +6,18 @@ import { fileURLToPath } from 'url';
 */
 //const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const {UserAPI} = require('./src/api/user.api');
 async function expressApp (app) {
     app.use( express.json() );
     app.use( cors() );
     app.use( express.static(__dirname + '/public') );
     app.use( express.urlencoded( { extended: false }));
 
-
-    //UserAPI(app);
-}
-class NewClass{
-    async WriteLog(){
-        console.log('new class');
-    }
+    const userAPI = new UserAPI();
+    userAPI.UserTableCreate(app);
 }
 
 
 module.exports = { 
     expressApp: expressApp,
-    NewClass: NewClass
 }

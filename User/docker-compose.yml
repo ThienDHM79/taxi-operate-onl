@@ -1,0 +1,14 @@
+version: '3'
+services:
+  dev-db-user:
+    image: postgres:13
+    ports:
+    - 5433:5432
+    environment:
+      POSTGRES_USER: thiendao_user
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: db_user
+    networks:
+      - tkpmnc_belite
+networks:
+  tkpmnc_belite:
