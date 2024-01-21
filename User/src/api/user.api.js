@@ -1,8 +1,9 @@
 'use strict'
 const sequelize = require('sequelize');
+const {UserService} = require('../services/user.service')
 class UserAPI{
-    constructor(phonenum){
-        this.phonenum = phonenum + ' from-user';
+    constructor(){
+        this.userService = new UserService();
     }
     UserError(app){
 
@@ -31,8 +32,10 @@ class UserAPI{
             await res.send("user home page");
         });
 
-        app.get('/signup', async (req, res, next) => {
-
+        app.post('/v1/users/signup', async (req, res, next) => {
+            const {phonenum, password } = req.body;
+            const data = await this.userService.SignUp( {phonenum, password});
+            await res.json(data);
         })
     }
     
