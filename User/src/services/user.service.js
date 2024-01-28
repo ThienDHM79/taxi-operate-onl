@@ -7,20 +7,28 @@ class UserService{
 
     async SignUp(userInputs){
         const {phonenum, password} = userInputs;
-        const existingUser = await this.repository.FindUser(phonenum);
+        try{
+            const existingUser = await this.repository.FindUser(phonenum);
+        } catch (error){
+            error.status = 404;
+            return {status: error.status, message: error.message};
+        }
+        
 
         if (existingUser){
-            return {message: 'user exist!'};
+            return {status:'duplicated',message: 'user exist!'};
         }
         if (!existingUser){
             try{
                 const newUser = await this.repository.CreateUser({phonenum, password});
-                return { data:{
-                    phonenum: newUser.phonenum, 
-                    message: `user created at ${new Date()}`}
+                return {
+                    status: 'success',
+                    phonenum: newUser.phonenum,
+                    message: `user created at ${new Date()}`
                 };
-            } catch(e){
-                throw new Error({error: `error ${e.message}`});
+            } catch(error){
+                error.status = 404;
+                return {status: error.status, message: error.message}
             }
         }
     }

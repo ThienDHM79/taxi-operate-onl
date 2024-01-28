@@ -18,14 +18,13 @@ class UserAPI{
     }
     UserAdmin(app){
 
-
         app.get('/v1/users/createTable', async (req,res) => {
             let models = require('../database/models');
             //await sequelize.destroyAll();
             models.sequelize.sync( {alter: true}).then( () => {
                 res.send('table created');
             })
-        });
+        })
     }
     UserOp(app){
         app.get('/v1/users', async( req, res) => {
@@ -35,7 +34,15 @@ class UserAPI{
         app.post('/v1/users/signup', async (req, res, next) => {
             const {phonenum, password } = req.body;
             const data = await this.userService.SignUp( {phonenum, password});
-            await res.json(data);
+            if (data.status == 'duplicated'){
+                return res.status(409).json(data);
+            }
+            if (data.status == 'success'){
+                return res.status(201).json(data);
+            }
+            else{
+                return res.status(503).json(data);
+            }
         })
     }
     
