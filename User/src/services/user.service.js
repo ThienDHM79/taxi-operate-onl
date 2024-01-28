@@ -7,8 +7,9 @@ class UserService{
 
     async SignUp(userInputs){
         const {phonenum, password} = userInputs;
+        let existingUser = null;
         try{
-            const existingUser = await this.repository.FindUser(phonenum);
+            existingUser = await this.repository.FindUser(phonenum);
         } catch (error){
             error.status = 404;
             return {status: error.status, message: error.message};
