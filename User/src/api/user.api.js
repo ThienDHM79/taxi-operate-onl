@@ -1,6 +1,8 @@
 'use strict'
 const sequelize = require('sequelize');
 const {UserService} = require('../services/user.service')
+
+
 class UserAPI{
     constructor(){
         this.userService = new UserService();
@@ -44,18 +46,16 @@ class UserAPI{
                 return res.status(503).json(data);
             }
         })
-    }
-    
-}
-class Customer extends UserAPI{
-    constructor(phonenum, address){
-        super(phonenum);
-        this.address = address;
+        app.post('/v1/users/login', async(req, res, next)=>{
+            const {phonenum, password} = req.body;
+            const data = await this.userService.SignIn( {phonenum, password});
+            res.json(data);
+        })
+        
     }
     
 }
 
 //module.exports = { UserAPI: UserAPI}
 module.exports = {  
-    UserAPI: UserAPI,
-    Customer: Customer}
+    UserAPI: UserAPI}

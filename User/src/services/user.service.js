@@ -1,5 +1,6 @@
 'use strict';
 const {UserRepository} = require('../database/repository/user.repository')
+const {ValidatePassword } = require('../utils/utils')
 class UserService{
     constructor(){
         this.repository = new UserRepository();
@@ -33,7 +34,17 @@ class UserService{
             }
         }
     }
-    
+    async SignIn(userInputs){
+        const { phonenum, password } = userInputs;
+        const existingUser = await this.repository.FindUser( phonenum );
+        if (existingUser){
+            const validPassword = await ValidatePassword(password, existingUser.password);
+            if (validPassword){
+                return {status:"found"};
+            }
+        }
+        return null;
+    }
 }
 
 module.exports = {UserService: UserService};
