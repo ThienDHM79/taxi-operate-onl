@@ -1,6 +1,6 @@
 'use strict';
 const {UserRepository} = require('../database/repository/user.repository')
-const {ValidatePassword } = require('../utils/utils')
+const {ValidatePassword, GenerateSalt, GeneratePassword, GenerateSignature, FormatData } = require('../utils/utils')
 class UserService{
     constructor(){
         this.repository = new UserRepository();
@@ -21,8 +21,12 @@ class UserService{
             return {status:'duplicated',message: 'user exist!'};
         }
         if (!existingUser){
+            //create salt
+            let salt = await GenerateSalt();
             try{
-                const newUser = await this.repository.CreateUser({phonenum, password});
+                let userPassword = await GeneratePassword(password, salt);
+                const newUser = await this.repository.CreateUser({phonenum, password: userPassword, salt:salt});
+                //const token = await GenerateSignature( {_id: newUser.id} );
                 return {
                     status: 'success',
                     phonenum: newUser.phonenum,

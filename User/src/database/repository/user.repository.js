@@ -4,9 +4,9 @@ const sequelize = require('sequelize');
 const UserModel = require('../models');
 class UserRepository{
 
-    async CreateUser({ phonenum, password}){
+    async CreateUser({ phonenum, password, salt}){
         try {
-            const newUser = await UserModel.User.create({phonenum, password, isactive:true});
+            const newUser = await UserModel.User.create({phonenum, password, isactive:true, salt:salt});
             //await UserModel.create({phonenum, password, isactive: true});
             return {phonenum: newUser.phonenum};
         }

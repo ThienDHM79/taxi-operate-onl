@@ -37,13 +37,13 @@ class UserAPI{
             const {phonenum, password } = req.body;
             const data = await this.userService.SignUp( {phonenum, password});
             if (data.status == 'duplicated'){
-                return res.status(409).json(data);
+                res.status(409).json(data);
             }
             if (data.status == 'success'){
-                return res.status(201).json(data);
+                res.status(201).json(data);
             }
             else{
-                return res.status(503).json(data);
+                res.status(503).json(data);
             }
         })
         app.post('/v1/users/login', async(req, res, next)=>{
