@@ -26,10 +26,11 @@ class UserService{
             try{
                 let userPassword = await GeneratePassword(password, salt);
                 const newUser = await this.repository.CreateUser({phonenum, password: userPassword, salt:salt});
-                //const token = await GenerateSignature( {_id: newUser.id} );
+                const token = await GenerateSignature( {phonenum:newUser.phonenum, _id: newUser.id} );
                 return {
                     status: 'success',
                     phonenum: newUser.phonenum,
+                    token: token,
                     message: `user created at ${new Date()}`
                 };
             } catch(error){
@@ -41,10 +42,12 @@ class UserService{
     async SignIn(userInputs){
         const { phonenum, password } = userInputs;
         const existingUser = await this.repository.FindUser( phonenum );
+        console.log(existingUser.phonenum);
         if (existingUser){
-            const validPassword = await ValidatePassword(password, existingUser.password);
+            const validPassword = await ValidatePassword(password, existingUser.password, existingUser.salt);
             if (validPassword){
-                return {status:"found"};
+                const token = await GenerateSignature ( { phonenum: existingUser.phonenum, _id: existingUser.id});
+                return {status:"found", token: token};
             }
         }
         return null;

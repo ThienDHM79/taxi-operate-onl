@@ -8,7 +8,7 @@ class UserRepository{
         try {
             const newUser = await UserModel.User.create({phonenum, password, isactive:true, salt:salt});
             //await UserModel.create({phonenum, password, isactive: true});
-            return {phonenum: newUser.phonenum};
+            return newUser.dataValues;
         }
         catch(e){
             throw new Error(`${e.message}`);
