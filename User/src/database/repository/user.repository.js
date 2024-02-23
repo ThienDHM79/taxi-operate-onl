@@ -22,6 +22,26 @@ class UserRepository{
         })
         return existingUser;
     }
+    async UpdateUser( {userId, userInputs, userType}){
+        try {
+            const result = await UserModel.User.update({
+                firstname: userInputs.firstname,
+                lastname: userInputs.lastname,
+                usertype: userType,
+                detailsinfo: userInputs.detailsinfo,
+                updatedAt: new Date()
+            },{
+                where: {
+                    id: userId
+                }
+            });
+            return await UserModel.User.findByPk(userId);
+        } catch (error){
+            console.log(error.message);
+            return {error: true, message: error.message};
+        }
+        
+    }
 }
 
 module.exports = {UserRepository : UserRepository} ;

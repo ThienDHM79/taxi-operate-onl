@@ -49,9 +49,9 @@ class UserAPI{
         app.post('/v1/users/login', async(req, res, next)=>{
             const {phonenum, password} = req.body;
             const data = await this.userService.SignIn( {phonenum, password});
+            res.session.token = data.token;
             res.json(data);
         })
-        
     }
     
 }

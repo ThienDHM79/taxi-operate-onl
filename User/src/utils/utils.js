@@ -41,3 +41,13 @@ module.exports.FormatData = (data) => {
         throw new Error("Data not found");
     }
 };
+module.exports.VerifyToken = (jwtToken) => {
+    jwt.verify(jwtToken, 'APP_SECRECT', (err, decoded) => {
+        if (err){
+            return {error: true , message: "invalid token"}
+        } else{
+           return {userId: decoded.userId};
+        }
+        
+    })
+}

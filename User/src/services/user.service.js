@@ -1,6 +1,11 @@
 'use strict';
 const {UserRepository} = require('../database/repository/user.repository')
-const {ValidatePassword, GenerateSalt, GeneratePassword, GenerateSignature, FormatData } = require('../utils/utils')
+const {ValidatePassword, 
+        GenerateSalt, 
+        GeneratePassword, 
+        GenerateSignature, 
+        FormatData,
+        VerifyToken } = require('../utils/utils')
 class UserService{
     constructor(){
         this.repository = new UserRepository();
@@ -26,7 +31,7 @@ class UserService{
             try{
                 let userPassword = await GeneratePassword(password, salt);
                 const newUser = await this.repository.CreateUser({phonenum, password: userPassword, salt:salt});
-                const token = await GenerateSignature( {phonenum:newUser.phonenum, _id: newUser.id} );
+                const token = await GenerateSignature( {phonenum:newUser.phonenum, userId: newUser.id} );
                 return {
                     status: 'success',
                     phonenum: newUser.phonenum,
@@ -51,6 +56,27 @@ class UserService{
             }
         }
         return null;
+    }
+    async GetUserFromToken(jwtToken){
+        const TokenData = await VerifyToken(jwtToken);
+        if (!TokenData){
+            return 
+        }
+    }
+    async UpdateProfile(userId, userInputs, userType){
+        userInputs.detailsinfo = {
+            email: userInputs.email,
+            firstname: userInputs.firstname,
+            lastname: userInputs.lastname,
+            gender: userInputs.gender
+        }
+        const updatedUser = await this.repository.UpdateUser(userId, userInputs, userType);
+        if (updatedUser.error == true){
+            return { status: 400, message : updatedUser.message}
+        }
+        else{
+            return updatedUser;
+        }
     }
 }
 
