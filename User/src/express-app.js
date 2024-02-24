@@ -15,13 +15,15 @@ async function expressApp (app) {
     app.use( express.static(__dirname + '/public') );
     app.use( express.urlencoded( { extended: false }));
 
+    const operatorAPI = new OperatorAPI();
+    operatorAPI.OperatorAction(app); 
+    
     const userAPI = new UserAPI();
     userAPI.UserOp(app);
     userAPI.UserAdmin(app);
-    //userAPI.UserError(app);
+    userAPI.UserError(app);
 
-    const operatorAPI = new OperatorAPI();
-    operatorAPI.OperatorAction(app);
+    
 
 }
 
