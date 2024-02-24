@@ -22,7 +22,7 @@ class UserRepository{
         })
         return existingUser;
     }
-    async UpdateUser( {userId, userInputs, userType}){
+    async UpdateUser( userId, userInputs, userType){
         try {
             const result = await UserModel.User.update({
                 firstname: userInputs.firstname,

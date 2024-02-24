@@ -27,7 +27,7 @@ module.exports.ValidatePassword = async (
 
 module.exports.GenerateSignature = async (payload) => {
     try {
-        return await jwt.sign(payload, 'APP_SECRET', { expiresIn: "1d"});
+        return await jwt.sign(payload, 'APP_SECRET', { expiresIn: '1d'});
     } catch (error){
         console.log(error);
         return error;
@@ -41,13 +41,16 @@ module.exports.FormatData = (data) => {
         throw new Error("Data not found");
     }
 };
-module.exports.VerifyToken = (jwtToken) => {
-    jwt.verify(jwtToken, 'APP_SECRECT', (err, decoded) => {
+module.exports.authenticateToken = (req,res,next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+    jwt.verify(token, 'APP_SECRET', (err, decoded) => {
         if (err){
-            return {error: true , message: "invalid token"}
-        } else{
-           return {userId: decoded.userId};
+            console.log(err);
+            return res.sendStatus(403);
         }
-        
-    })
+           req.user = decoded
+        })
+    next();
 }

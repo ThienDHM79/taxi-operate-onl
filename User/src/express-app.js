@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 //const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const {UserAPI} = require('./api/user.api');
+const {OperatorAPI} = require('./api/operator.api')
 
 async function expressApp (app) {
     app.use( express.json() );
@@ -17,7 +18,10 @@ async function expressApp (app) {
     const userAPI = new UserAPI();
     userAPI.UserOp(app);
     userAPI.UserAdmin(app);
-    userAPI.UserError(app);
+    //userAPI.UserError(app);
+
+    const operatorAPI = new OperatorAPI();
+    operatorAPI.OperatorAction(app);
 
 }
 
