@@ -1,0 +1,49 @@
+[{
+    "id": 1,
+    "contact": "Dew Ruecastle scaunce0@exblog.jp",
+    "phonenum": "9349237853",
+    "Date_created": "11/12/2023",
+    "location": "52527 Onsgard Court",
+    "status": "waiting",
+    "Action": "delete"
+  }, {
+    "id": 2,
+    "contact": "Benjamen Hutchcraft fvergo1@ovh.net",
+    "phonenum": "6093633481",
+    "Date_created": "09/26/2023",
+    "location": "9856 Brickson Park Park",
+    "status": "created",
+    "Action": "update"
+  }, {
+    "id": 3,
+    "contact": "Collete Rase dbrumbie2@un.org",
+    "phonenum": "8948535053",
+    "Date_created": "03/16/2023",
+    "location": "5 Holy Cross Circle",
+    "status": "completed",
+    "Action": "update"
+  }, {
+    "id": 4,
+    "contact": "Case Refford cpinnocke3@exblog.jp",
+    "phonenum": "4671278202",
+    "Date_created": "04/20/2023",
+    "location": "8 Monica Parkway",
+    "status": "on-board",
+    "Action": "update"
+  }, {
+    "id": 5,
+    "contact": "Gloriana Ranyelld nmathe4@bing.com",
+    "phonenum": "3477741071",
+    "Date_created": "04/24/2023",
+    "location": "32274 Burrows Terrace",
+    "status": "on-board",
+    "Action": "update"
+  }, {
+    "id": 6,
+    "contact": "Rozina Satyford lpriver5@statcounter.com",
+    "phonenum": "3294814570",
+    "Date_created": "07/03/2023",
+    "location": "94 Granby Parkway",
+    "status": "completed",
+    "Action": "delete"
+  }]
