@@ -1,14 +1,8 @@
 'use strict';
-const {UserRepository} = require('../database/repository/client.repository')
-const {ValidatePassword, 
-        GenerateSalt, 
-        GeneratePassword, 
-        GenerateSignature, 
-        FormatData,
-        VerifyToken } = require('../utils/utils')
-class UserService{
+const {ClientRepository} = require('../database/repository/client.repository')
+class ClientService{
     constructor(){
-        this.repository = new UserRepository();
+        this.repository = new ClientRepository();
     }
 
     async SignUp(userInputs){
@@ -80,4 +74,4 @@ class UserService{
     }
 }
 
-module.exports = {UserService: UserService};
+module.exports = {ClientService: ClientService};

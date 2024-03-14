@@ -4,9 +4,9 @@ const sequelize = require('sequelize');
 const ClientModel = require('../models');
 class ClientRepository{
 
-    async CreateClient({ phonenum, fullname}){
+    async CreateClient({ phonenum, firstname}){
         try {
-            const newClient = await ClientModel.Client.create({phonenum, fullname});
+            const newClient = await ClientModel.Client.create({phonenum, firstname});
             //await ClientModel.create({phonenum, password, isactive: true});
             return newClient.dataValues;
         }

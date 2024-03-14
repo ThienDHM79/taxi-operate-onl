@@ -6,8 +6,8 @@ import { fileURLToPath } from 'url';
 */
 //const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const {UserAPI} = require('./api/user.api');
-const {OperatorAPI} = require('./api/client.api')
+const {UserAPI} = require('./api/client.api');
+const {OperatorAPI} = require('./api/booking.api')
 
 async function expressApp (app) {
     app.use( express.json() );
