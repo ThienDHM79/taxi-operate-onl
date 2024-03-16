@@ -32,7 +32,8 @@ class ClientAPI{
     }
     ClientOp(app){
         app.get('/v1/clients', async( req, res) => {
-            await res.send("Client home page");
+            const Clients = await this.clientService.getAll(true);
+            res.json(Clients);
         });
 
         app.post('/v1/client/', async (req, res, next) => {

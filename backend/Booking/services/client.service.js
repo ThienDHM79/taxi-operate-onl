@@ -5,6 +5,19 @@ class ClientService{
         this.repository = new ClientRepository();
     }
 
+    async getAll(isactive){
+        let ClientList = null;
+        try {
+            ClientList = await this.repository.getAll(isactive);
+            return ClientList;
+        } catch (error) {
+            return {
+                status: error.status, 
+                message: error.message
+            }
+        }
+    }
+
     async Add(userInputs){
         //const {fullname, phonenum} = userInputs;
         let existingUser = null;

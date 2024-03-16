@@ -3,7 +3,18 @@ const sequelize = require('sequelize');
 //add more if need more model
 const ClientModel = require('../models');
 class ClientRepository{
-
+    async getAll(isactive){
+        try {
+            const AllClients = await ClientModel.Client.findAll({
+                where:{
+                    isactive: isactive
+                }
+            });
+            return AllClients;
+        } catch (error){
+            return { status: error.status, message: error.message}
+        }
+    }
     async Create({ firstname, phonenum}){
         try {
             const newClient = await ClientModel.Client.create({firstname, phonenum});
