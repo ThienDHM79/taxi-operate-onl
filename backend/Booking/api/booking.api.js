@@ -1,9 +1,8 @@
 'use strict';
 const {UserAPI} = require('./client.api')
 const {authenticateToken} = require('../utils/utils');
-class OperatorAPI extends UserAPI{
+class OperatorAPI {
     constructor(email,firstname, lastname, gender){
-        super();//use the service same as userapi
         this.email = email;
         this.type = "operator";
         this.firstname = firstname;

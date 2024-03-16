@@ -4,9 +4,9 @@ const sequelize = require('sequelize');
 const ClientModel = require('../models');
 class ClientRepository{
 
-    async CreateClient({ phonenum, firstname}){
+    async Create({ firstname, phonenum}){
         try {
-            const newClient = await ClientModel.Client.create({phonenum, firstname});
+            const newClient = await ClientModel.Client.create({firstname, phonenum});
             //await ClientModel.create({phonenum, password, isactive: true});
             return newClient.dataValues;
         }
@@ -14,7 +14,7 @@ class ClientRepository{
             throw new Error(`${e.message}`);
         }
     }
-    async FindClient( phonenum){
+    async Find( phonenum){
         const existingClient = await ClientModel.Client.findOne({
             where: {
                 phonenum: phonenum
@@ -22,7 +22,7 @@ class ClientRepository{
         })
         return existingClient;
     }
-    async UpdateClient( ClientId, ClientInputs, ClientType){
+    async Update( ClientId, ClientInputs, ClientType){
         try {
             const result = await ClientModel.Client.update({
                 firstname: ClientInputs.firstname,

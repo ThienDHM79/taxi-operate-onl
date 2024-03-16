@@ -35,9 +35,9 @@ class ClientAPI{
             await res.send("Client home page");
         });
 
-        app.post('/v1/Clients/signup', async (req, res, next) => {
-            const {phonenum, password } = req.body;
-            const data = await this.ClientService.SignUp( {phonenum, password});
+        app.post('/v1/client/', async (req, res, next) => {
+            const {fullname , phonenum} = req.body;
+            const data = await this.clientService.Add( {fullname, phonenum});
             if (data.status == 'duplicated'){
                 res.status(409).json(data);
             }
@@ -50,7 +50,7 @@ class ClientAPI{
         })
         app.post('/v1/Clients/login', async(req, res, next)=>{
             const {phonenum, password} = req.body;
-            const data = await this.ClientService.SignIn( {phonenum, password});
+            const data = await this.clientService.SignIn( {phonenum, password});
             res.json({accessToken: data.token});
         })
     }
@@ -59,4 +59,4 @@ class ClientAPI{
 
 //module.exports = { ClientAPI: ClientAPI}
 module.exports = {  
-    ClientAPI: this.ClientAPI}
+    ClientAPI: ClientAPI}
