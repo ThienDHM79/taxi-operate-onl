@@ -15,7 +15,7 @@ controller.getData = async (req, res, next) => {
     next();
 }
 controller.show = async (req, res) => {
-    res.render('index');
+    res.render('client');
 }
 
 module.exports = controller;
