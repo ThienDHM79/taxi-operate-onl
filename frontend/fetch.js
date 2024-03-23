@@ -1,9 +1,25 @@
+'use strict';
+//const axios = require('axios');
+//const response = require('express');
+const API = 'http://localhost:7000/v1/clients';
+
+
+
+/*
 const getData = () => {
     return fetch('client-data.json')
         .then( response => {
             return response.json();
         });
 };
+*/
+
+const getData = async (apiUrl) => {
+   const response =  await axios.get(apiUrl);
+   return response.data;
+
+};
+
 const updateDataTable = (data) =>{
     console.info("Updating items table ...");
     const tableBody = document.querySelector('#client-table tbody');
@@ -12,19 +28,14 @@ const updateDataTable = (data) =>{
         data.forEach(item => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.contact}</td>
+                <td>${item.firstname}</td>
                 <td>${item.phonenum}</td>
-                <td>${item.location}</td>
                 <td>${item.status}</td>
             `;
             tableBody.appendChild(row);
         });
 }
 
-getData().then( items => {
-    updateDataTable(items);
-});
 
 /*
 datafunction: method to get data
@@ -42,29 +53,18 @@ const autoRefresh = ( {dataFunction, onComplete, interval = 30000}) => {
     execute();
 };
 
+
+///// ON GOING SEPARATE AXIOS AND UPDATE
+axios.get(API).then(response => {
+    updateDataTable(response.data);
+});
+
+
+
+/*
 autoRefresh({
-    dataFunction: getData,
+    dataFunction: await getData,
     onComplete: updateDataTable,
     interval: 2000
 });
-
-/*
-fetch('client-data.json')
-    .then( response => response.json())
-    .then( data => {
-        const tableBody = document.querySelector('#client-table tbody');
-        
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.contact}</td>
-                <td>${item.phonenum}</td>
-                <td>${item.location}</td>
-                <td>${item.status}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    })
-    .catch( error => console.error('Error fetching data', error));
 */
