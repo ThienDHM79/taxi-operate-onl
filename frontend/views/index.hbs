@@ -30,9 +30,10 @@
                                 </button>
                               </td>
                             </tr>
+                            {{#each clients}}
                             <tr>
-                              <td>Tiger Nixon</td>
-                              <td>System Architect</td>
+                              <td>{{firstname}}</td>
+                              <td>{{phonenum}}</td>
                               <td>61</td>
                               <td>Edinburgh</td>
                               <td>
@@ -41,6 +42,7 @@
                                 </button>
                               </td>
                             </tr>
+                            {{/each}}
                           </tbody>
                         </table>
                       </div>
