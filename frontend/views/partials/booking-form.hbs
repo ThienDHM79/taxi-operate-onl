@@ -18,7 +18,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form>
+        <form action="/request" method="post">
           <div class="modal-body">
             <div class="form-group">
               <label for="clientname">Client Name</label>
@@ -32,6 +32,13 @@
             <div class="form-group">
               <label for="location">Pick up location</label>
               <input type="text" class="form-control" id="location" placeholder="Address, Places to pick up">
+            </div>
+            <div class="form-group">
+              <label for="taxitype">Taxi type</label>
+              <select class="form-control" name="taxitype" id="taxitype">
+                <option value="4">4 seat</option>
+                <option value="7">7 seat</option>
+              </select>
             </div>
           </div>
           <div class="modal-footer border-top-0 d-flex justify-content-center">

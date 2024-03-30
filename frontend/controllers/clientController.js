@@ -10,8 +10,14 @@ const getDataAxios = async (apiUrl) => {
 
 controller.getData = async (req, res, next) => {
     //const clientsData = await getDataAxios(baseUrl);
-    const ClientsData = await getDataAxios(baseUrl);
-    res.locals.clients = ClientsData;
+    try {
+        const ClientsData = await getDataAxios(baseUrl);
+        res.locals.clients = ClientsData;
+        res.locals.noti_message = 'Successful';
+    } catch (error){
+        res.locals.noti_message = error.message;
+        console.log(error.message);
+    }
     next();
 }
 controller.show = async (req, res) => {

@@ -13,6 +13,10 @@ class BookingAPI {
         app.get('/v1/Booking', async(req,res)=>{
             res.json({message:"booking online"});
         })
+        // call 3rd party service . not need as api - test first
+        app.get('/v1/geolocation', async( req, res ) => {
+
+        })
     }
 }
 module.exports = {
