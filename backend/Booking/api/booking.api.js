@@ -9,6 +9,7 @@ class BookingAPI {
         this.requesttime = requesttime;
     }   
     Action(app){
+        //start booking server
         app.get('/v1/Booking', async(req,res)=>{
             res.json({message:"booking online"});
         })

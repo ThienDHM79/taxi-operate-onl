@@ -19,11 +19,12 @@ class ClientAPI{
         })
     }
     ClientOp(app){
+        //get client list
         app.get('/v1/clients', async( req, res) => {
             const Clients = await this.clientService.getAll(true);
             res.json(Clients);
         });
-
+        //create client 
         app.post('/v1/client/', async (req, res, next) => {
             const {fullname , phonenum} = req.body;
             const data = await this.clientService.Add( {fullname, phonenum});
