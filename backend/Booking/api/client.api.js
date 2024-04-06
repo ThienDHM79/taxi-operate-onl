@@ -10,7 +10,7 @@ class ClientAPI{
     
     ClientAdmin(app){
 
-        app.get('/v1/clients/createTable', async (req,res) => {
+        app.get('/v1/createTable', async (req,res) => {
             let models = require('../database/models');
             //await sequelize.destroyAll();
             models.sequelize.sync( {alter: true}).then( () => {
