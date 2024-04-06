@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     //data for front end
     tripdetails: DataTypes.JSON,
     driverdetails: DataTypes.JSON,
+
     servicestatus: DataTypes.STRING,
+    driverstatus: DataTypes.STRING,
+
     latitude: DataTypes.INTEGER,
     longtitude: DataTypes.INTEGER,
     geofence_id: DataTypes.INTEGER,

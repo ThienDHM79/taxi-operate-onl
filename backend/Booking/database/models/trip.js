@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      trip.hasOne(models.engagement, {foreignKey: 'tripId'});
     }
   }
   trip.init({
