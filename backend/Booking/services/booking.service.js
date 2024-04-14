@@ -7,6 +7,22 @@ class BookingService{
         this.repository = new BookingRepository();
     }
 
+    async Get(){
+        try{
+            const TripdbList = await this.repository.Get();
+            const TripList = TripdbList.map( (item) => {
+                return item.dataValues;
+            });
+            return {
+                status: 'success',
+                data: TripList
+            }
+        } catch{
+            error.status = 404;
+            return { status: error.status, message: error.message}
+        }
+    }
+
     async Add(operatorInput){
         try {
             const newTrip = await this.repository.Create({

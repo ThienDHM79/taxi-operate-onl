@@ -17,6 +17,15 @@ class TripDAO{
 }
 class TripRepository{
 
+    async Get(){
+        try{
+            const TripdbList = await Model.trip.findAll();
+            return TripdbList;
+        }
+        catch(e){
+            throw new Error(`${e.message}`)
+        }
+    }
     async Create( ServiceInput ){
         try{
             this.tripDAO = new TripDAO(ServiceInput);

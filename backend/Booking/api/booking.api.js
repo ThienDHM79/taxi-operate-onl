@@ -15,7 +15,18 @@ class BookingAPI {
     Action(app){
         //start booking server
         app.get('/v1/Booking', async(req,res)=>{
-            res.json({message:"booking online"});
+            try{
+                const response = await this.BookingService.Get();
+                if (response.status = 'success'){
+                    res.json(response.data);
+                }
+                else {
+                    res.status(404).json(response);
+                }
+
+            }   catch(error){
+                    console.log({ status: error.status, message: error.message});
+            }  
         })
         // call 3rd party service . not need as api - test first
         app.get('/v1/geolocation', async( req, res ) => {

@@ -42,7 +42,7 @@ app.use( session({
 */
 //routes
 //app.use('/', require('./routes/indexRouter'));
-app.use('/client', require('./routes/ClientRouter'));
+app.use('/Operator', require('./routes/OperatorRouter'));
 
 //khoi dong web server
 app.listen(port, () => {

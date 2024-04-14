@@ -37,9 +37,8 @@ controller.getData = async (req, res, next) => {
 
     //update to load data of trip. current data of client (NOT UPDATE AFTER ADD TRIP)
     try {
-        const ClientsData = await getDataAxios(baseUrl+'/v1/clients');
-        console.log(ClientsData);
-        res.locals.clients = ClientsData;
+        const BookingData = await getDataAxios(baseUrl+'/v1/Booking');
+        res.locals.clients = BookingData;
         res.locals.noti_message = 'Successful';
     } catch (error){
         res.locals.noti_message = error.message;
@@ -48,7 +47,7 @@ controller.getData = async (req, res, next) => {
     next();
 }
 controller.show = async (req, res) => {
-    res.render('client');
+    res.render('Operator');
 }
 
 controller.create= async( req, res, next) => {
