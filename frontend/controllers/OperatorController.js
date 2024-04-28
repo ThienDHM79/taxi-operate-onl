@@ -3,6 +3,8 @@ let controller = {};
 const axios = require('axios');
 const { stringify } = require('nodemon/lib/utils');
 const baseUrl = 'http://localhost:7000';
+
+const {io} = require("socket.io-client");
 const getDataAxios = async (apiUrl) => {
     const response =  await axios.get(apiUrl);
     return response.data;
@@ -53,8 +55,16 @@ controller.show = async (req, res) => {
 controller.create= async( req, res, next) => {
     try{
         const createTripData = new DTO(req.body);
-        const createTrip = await postDataAxios(createTripData, baseUrl + '/v1/Booking', );
-        await console.log(`create success ${createTrip}`);
+        const createTrip = await postDataAxios(createTripData, baseUrl + '/v1/Booking', ).then(
+            (resp) => {
+                const socket = io('http://127.0.0.1:3000');
+                socket.on( 'connect', () => {
+                    console.log('connected');
+                })
+                socket.emit('new', resp);
+                }
+        );
+        console.log(`create success ${createTrip}`);
 
     } catch (error){
         res.locals.noti_message = error.message;

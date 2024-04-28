@@ -1,5 +1,6 @@
 const EventEmitter = require('events');
 
+
 class BaseEmitter extends EventEmitter {
 
   execute(asyncFunc, ...args) {
@@ -16,7 +17,7 @@ class BaseEmitter extends EventEmitter {
     });
     this.emit('end');
   }
-  
+
   async executeAsync(asyncFunc, ...args) {
     this.emit('begin');
     try {

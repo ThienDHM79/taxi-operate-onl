@@ -1,6 +1,5 @@
 'use strict';
 const {BookingService} = require('../services/booking.service')
-const {BaseEmitter} = require('../../Event/BaseEmitter')
 
 class BookingAPI {
     constructor(){
@@ -52,25 +51,22 @@ class BookingAPI {
                 console.log({ status: error.status, message: error.message});
             }       
         });
-        app.post('/v2/Booking', async( req, res ) => {
+        app.post('/v2/Booking', async( req, res,next ) => { 
+            try{
+                this.BookDTO = this.convertToDTO(req.body);
+                const data = await this.BookingService.Add( this.BookDTO);
+                if (data.status = 'success'){
+                    res.json(data);
+                }
+                else {
+                    res.status(503).json(data);
+                }
+                return data;
+            } catch(error){
+                console.log({ status: error.status, message: error.message});
+            }  
+        });
 
-            
-           const CheckDriverAccept = (drivername) => {
-            console.log(`driver name is ${drivername}`);
-            return  drivername;
-           };
-            const requestEmitter = new BaseEmitter();
-            
-            //can begin, can execute. not see 'end'. post not complete - keep hold ???
-            requestEmitter.on('begin', () => console.log('received request') );
-            requestEmitter.on('end', () => console.log('complete response') );
-            requestEmitter.on('data', (data) => console.log(`data here ${data}`) );
-
-            const data = await app.post('/v1/Booking');
-            requestEmitter.executeAsync(CheckDriverAccept,"driver 2");
-            res.json(data);
-
-        })
     }
 }
 module.exports = {
