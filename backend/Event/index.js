@@ -1,6 +1,7 @@
 //back-end for websocket
 const { Server } = require('socket.io');
 
+const port = process.env.PORT || 3000;
 //create new server, backend frontend not same baseurl , need cors
 const io = new Server({
     cors: {
@@ -27,4 +28,6 @@ io.on( "connection", (socket) => {
     });
 });
 
-io.listen(3000); 
+io.listen(port, () => {
+    console.log(`event server listen on port ${port} `)
+}); 

@@ -28,15 +28,22 @@ class BookingService{
             const newTrip = await this.repository.Create({
                 customername: operatorInput.customername,
                 customerphone: operatorInput.customerphone,
-                taxitype: operatorInput.taxitype
+                taxitype: operatorInput.taxitype,
+                location: operatorInput.location,
+                destination: operatorInput.destination
             });
+            console.log(`repo result ${JSON.stringify(newTrip)}`);
             return {
                 tripid: newTrip.id,
                 status: 'success',
                 tripstatus: 'new',
                 log: {
                     "trip":
-                    {
+                    {   
+                        "customername": newTrip.customername,
+                        "customerphone": newTrip.customerphone,
+                        "location": newTrip.location,
+                        "destination": newTrip.destination,
                         "message": "created",
                         "updatedAt": utils.FormatTime(new Date())
                     }

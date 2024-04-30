@@ -9,6 +9,8 @@ class BookingAPI {
             this.BookDTO.customername  = data.customername;
             this.BookDTO.customerphone = data.customerphone;
             this.BookDTO.taxitype = data.taxitype;
+            this.BookDTO.location = data.location;
+            this.BookDTO.destination = data.destination;
             return this.BookDTO;
         };
 
@@ -39,6 +41,8 @@ class BookingAPI {
             //get req to DTO - pending
             try{
                 this.BookDTO = this.convertToDTO(req.body);
+                //check html to dto
+                console.log(`input to DTO ${JSON.stringify(this.BookDTO)}`);
                 const data = await this.BookingService.Add( this.BookDTO);
                 if (data.status = 'success'){
                     res.json(data);
@@ -49,21 +53,6 @@ class BookingAPI {
             } catch(error){
                 console.log({ status: error.status, message: error.message});
             }       
-        });
-        app.post('/v2/Booking', async( req, res,next ) => { 
-            try{
-                this.BookDTO = this.convertToDTO(req.body);
-                const data = await this.BookingService.Add( this.BookDTO);
-                if (data.status = 'success'){
-                    res.json(data);
-                }
-                else {
-                    res.status(503).json(data);
-                }
-                return data;
-            } catch(error){
-                console.log({ status: error.status, message: error.message});
-            }  
         });
 
     }

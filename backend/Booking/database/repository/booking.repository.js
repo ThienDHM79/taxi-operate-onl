@@ -13,6 +13,8 @@ class TripDAO{
         this.customername = data.customername;
         this.customerphone = data.customerphone;
         this.taxitype = data.taxitype;
+        this.location = data.location;
+        this.destination = data.destination;
     }
 }
 class TripRepository{

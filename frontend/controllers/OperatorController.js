@@ -18,6 +18,8 @@ class DTO{
         this.customername = data.customername;
         this.customerphone = data.customerphone;
         this.taxitype = data.taxitype;
+        this.location = data.location;
+        this.destination = data.destination;
     
     }
 }
@@ -54,7 +56,10 @@ controller.create= async( req, res, next) => {
             const socket = io(`http://127.0.0.1:3000`);
             socket.on( 'connect', () => {
                 console.log('connected');
-                socket.emit('new', {tripid:resp.data.tripid, tripdata: createTripData });
+                socket.emit('new', {
+                    "tripid":resp.data.tripid, 
+                    "tripdetails": resp.data.log.trip
+                });
             });
         });
 

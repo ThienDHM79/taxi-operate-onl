@@ -8,21 +8,51 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- import socket io front end-->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
   </head>
   <body>
     <div class="GMapMap container text-center my-3">
-      <img class="map" src="../views/assets/map.jpg" alt="Map Alternative">
+      <img class="map" src="../Mock_Driver/assets/map.jpg" alt="Map Alternative">
     </div>
-    <div class="container noti text-center alert alert-primary my-3" role="alert">
-      <p>Notification of action show here</p>
-    </div>
-    <div class="list-group action container">
-      <button type="button" class="list-group-item list-group-item-action active bg-primary">Accept</button>
-      <button type="button" class="list-group-item list-group-item-action bg-warning">Reject</button>
-      <button type="button" class="list-group-item list-group-item-action disabled">Cancel Service</button>
-      <button type="button" class="list-group-item list-group-item-action text-white bg-success">Arrived</button>
-      <button type="button" class="list-group-item list-group-item-action text-white bg-success">Completed</button>
-    </div>
+    <div class="" id="app">
+      <div v-if="isModalActive" class="container">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{{tripdetails.customername}}</p>
+              <br>
+              <p>{{tripdetails.destination}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container noti text-center alert alert-primary my-3" role="alert">
+        <p>Last notification: {{notification}}</p>
+      </div>
+      <div class="container noti text-center">
+        <p class="driverstatus">Driver Status {{driverstatus}}</p>
+      </div>
+      <div class="list-group action container">
+        <button type="button" class="list-group-item list-group-item-action active bg-primary">Accept</button>
+        <button type="button" class="list-group-item list-group-item-action bg-warning">Reject</button>
+        <button type="button" class="list-group-item list-group-item-action disabled">Cancel Service</button>
+        <button type="button" class="list-group-item list-group-item-action text-white bg-success">Arrived</button>
+        <button type="button" class="list-group-item list-group-item-action text-white bg-success">Completed</button>
+      </div>
+  </div>
     <style>
      img.map {
       width: 100;
@@ -34,6 +64,7 @@
      }
     </style>
     <!-- Optional JavaScript -->
+    <script src="app.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
