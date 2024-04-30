@@ -17,7 +17,7 @@ io.on( "connection", (socket) => {
     //when opertor success request
     socket.on('new',(request) => {
         socket.broadcast.emit('request', request);
-        console.log('broadcast start')
+        console.log(`broadcast start ${JSON.stringify(request)}`);
     })
     //response on user frontend click emit event
     socket.on('driver-accept', () => {

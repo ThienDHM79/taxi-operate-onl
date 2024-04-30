@@ -46,7 +46,6 @@ class BookingAPI {
                 else {
                     res.status(503).json(data);
                 }
-                return data;
             } catch(error){
                 console.log({ status: error.status, message: error.message});
             }       

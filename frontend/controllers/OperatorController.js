@@ -23,17 +23,6 @@ class DTO{
 }
 
 
-const postDataAxios = async(data, apiUrl) => {
-    const json = JSON.stringify(data);
-    console.log(json);
-    const res = await axios.post(apiUrl, json, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    return res.data.data;
-}
-
 controller.getData = async (req, res, next) => {
     //const clientsData = await getDataAxios(baseUrl);
 
@@ -55,16 +44,19 @@ controller.show = async (req, res) => {
 controller.create= async( req, res, next) => {
     try{
         const createTripData = new DTO(req.body);
-        const createTrip = await postDataAxios(createTripData, baseUrl + '/v1/Booking', ).then(
-            (resp) => {
-                const socket = io('http://127.0.0.1:3000');
-                socket.on( 'connect', () => {
-                    console.log('connected');
-                })
-                socket.emit('new', resp);
-                }
-        );
-        console.log(`create success ${createTrip}`);
+
+        await axios.post(baseUrl + '/v1/Booking', JSON.stringify(createTripData), {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then( (resp) => {
+            console.log(`post received ${resp.data.tripid}`);
+            const socket = io(`http://127.0.0.1:3000`);
+            socket.on( 'connect', () => {
+                console.log('connected');
+                socket.emit('new', {tripid:resp.data.tripid, tripdata: createTripData });
+            });
+        });
 
     } catch (error){
         res.locals.noti_message = error.message;

@@ -31,6 +31,7 @@ class BookingService{
                 taxitype: operatorInput.taxitype
             });
             return {
+                tripid: newTrip.id,
                 status: 'success',
                 tripstatus: 'new',
                 log: {
