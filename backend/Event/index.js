@@ -9,20 +9,14 @@ const io = new Server({
     }
 })
 
-let status = 'started';
 
 //when a request come to establish web socket
 io.on( "connection", (socket) => {
-    socket.emit( 'begin', status) // signal , value
-
-    //when opertor success request
-    socket.on('new',(request) => {
-        socket.broadcast.emit('request', request);
-        console.log(`broadcast start ${JSON.stringify(request)}`);
-    })
+    console.log('socket server started');
     //response on user frontend click emit event
-    socket.on('driver-accept', () => {
-        status = 'accepted';
+    socket.on('engage', (tripdata) => {
+        const tripid = tripdata.tripid;
+        //update db for trip, engagement, driver
         socket.emit('cancel', `cancel on ${new Date()}`);//also send likeupdate
         //socket.broadcast.emit( 'request', 'request 1'); //broad cast to all othe users
     });

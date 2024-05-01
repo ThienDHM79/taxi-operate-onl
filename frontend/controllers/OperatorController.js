@@ -1,7 +1,6 @@
 'use strict';
 let controller = {};
 const axios = require('axios');
-const { stringify } = require('nodemon/lib/utils');
 const baseUrl = 'http://localhost:7000';
 
 const {io} = require("socket.io-client");
@@ -56,7 +55,7 @@ controller.create= async( req, res, next) => {
             const socket = io(`http://127.0.0.1:3000`);
             socket.on( 'connect', () => {
                 console.log('connected');
-                socket.emit('new', {
+                socket.broadcast.emit('request', {
                     "tripid":resp.data.tripid, 
                     "tripdetails": resp.data.log.trip
                 });

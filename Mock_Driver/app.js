@@ -2,10 +2,13 @@ const socket = io('http://127.0.0.1:3000');//based on url of the page current se
 
 const app = Vue.createApp(
     {
+        el:'#app',
         data() {
             return {
+                tripid:"",
                 isModalActive: false,
                 driverstatus: "free",
+                tripstatus:"",
                 notification:"",
                 tripdetails:{}
             }
@@ -21,13 +24,16 @@ const app = Vue.createApp(
             socket.on('request', (data) => {
                 this.notifyRequest(data);
             });
+           
+
         },
         methods: {
-            // Update table data with new row or replace existing row
+            // Update when have emit coming
             notifyRequest(RequestData) {
                 console.log(RequestData);
                 let text = `request ${JSON.stringify(RequestData.tripdetails)} \nPress OK to ACCEPT. Cancel to REJECT`;
-                this.ReceivedNotify();
+                this.receivedNotify();
+                this.tripid = RequestData.tripid;
                 this.tripdetails = RequestData.tripdetails;
                 /*
                 if ( confirm(text) == true) {
@@ -39,9 +45,21 @@ const app = Vue.createApp(
                 }
                 */
             },
-            ReceivedNotify(){
+            receivedNotify(){
                 this.isModalActive = true;
+            },
+            acceptRequest(){
+                this.notification = "Driver accepted";
+                this.driverstatus = "busy";
+                this.tripstatus="driveraccepted"
+                socket.emit('engage', {
+                    tripid: this.tripid,
+                    tripstatus: this.tripstatus,
+                    tripdetails: this.tripdetails,
+                    driverstatus: this.driverstatus
+                })
             }
+
         }
     }
 );

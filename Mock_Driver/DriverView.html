@@ -17,7 +17,8 @@
       <img class="map" src="../Mock_Driver/assets/map.jpg" alt="Map Alternative">
     </div>
     <div class="" id="app">
-      <div v-if="isModalActive" class="container">
+      <!-- modal active when have noti v-if="isModalActive"  -->
+      <div class="container">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -27,13 +28,13 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>{{tripdetails.customername}}</p>
+              <p>Pick up at: {{tripdetails.location}}</p>
               <br>
-              <p>{{tripdetails.destination}}</p>
+              <p>Destination: {{tripdetails.destination}}</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="btnAccept" @click="acceptRequest" name="accept" class="btn btn-primary active bg-primary">Accept</button>
+              <button type="button" id="btnReject" @click="rejectRequest" name="reject" class="btn bg-warning" data-dismiss="modal">Reject</button>
             </div>
           </div>
         </div>
@@ -48,9 +49,9 @@
       <div class="list-group action container">
         <button type="button" class="list-group-item list-group-item-action active bg-primary">Accept</button>
         <button type="button" class="list-group-item list-group-item-action bg-warning">Reject</button>
-        <button type="button" class="list-group-item list-group-item-action disabled">Cancel Service</button>
-        <button type="button" class="list-group-item list-group-item-action text-white bg-success">Arrived</button>
-        <button type="button" class="list-group-item list-group-item-action text-white bg-success">Completed</button>
+        <button type="button" id="btnCancel" class="list-group-item list-group-item-action disabled">Cancel Service</button>
+        <button type="button" id="btnArrived" class="list-group-item list-group-item-action text-white bg-success">Arrived</button>
+        <button type="button" id="btnCompleted" class="list-group-item list-group-item-action text-white bg-success">Completed</button>
       </div>
   </div>
     <style>
@@ -64,6 +65,11 @@
      }
     </style>
     <!-- Optional JavaScript -->
+    <script>
+      const btnAccept = document.querySelector('#btnAccept');
+      const btnReject = document.querySelector('#btnReject');
+    </script>
+    <script src="action.js"></script>
     <script src="app.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

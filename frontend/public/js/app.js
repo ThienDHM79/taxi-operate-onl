@@ -3,16 +3,24 @@
 //const response = require('express');
 const API = 'http://localhost:7000/v1/clients';
 
-
-
-/*
-const getData = () => {
-    return fetch('client-data.json')
-        .then( response => {
-            return response.json();
-        });
-};
-*/
+const socket = io('http://127.0.0.1:3000');
+const axios = require('axios');
+const baseUrl = 'http://localhost:7000';
+const app = Vue.createApp(
+    {
+        el:'#app',
+        data() {
+            return {
+                //table of trip per on socket.io update
+                Trips: [],
+                
+            }
+        },
+        created(){
+            Trips = axios.get(baseUrl+'/v1/Booking');
+        }
+    }
+)
 
 const getData = async (apiUrl) => {
    const response =  await axios.get(apiUrl);
