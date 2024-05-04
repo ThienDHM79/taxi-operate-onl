@@ -54,6 +54,7 @@ const app = Vue.createApp(
                 this.tripstatus="driveraccepted"
                 socket.emit('engage', {
                     tripid: this.tripid,
+                    driverid: 1,
                     tripstatus: this.tripstatus,
                     tripdetails: this.tripdetails,
                     driverstatus: this.driverstatus

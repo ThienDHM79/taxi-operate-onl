@@ -40,11 +40,11 @@
                                     </td>
                                     </tr>
                                     <!-- update to list component use v-bind v-for-->
-                                    <tr>
-                                    <td>Customer name here</td>
-                                    <td>location here</td>
-                                    <td>destination here</td>
-                                    <td>trip status here</td>
+                                    <tr v-for="trip in TripList">
+                                    <td>{{trip.customername}}</td>
+                                    <td>{{trip.customerphone}}</td>
+                                    <td>{{trip.taxitype}}</td>
+                                    <td>{{trip.status}}</td>
                                     <td>
                                         <button type="button" class="btn btn-danger btn-sm px-3">
                                         <i class="fas fa-times"></i>
@@ -67,9 +67,37 @@
         </div>
     </div>
 </template>
+<script setup>
+    import axios from 'axios';
+    import { onMounted, data } from 'vue';
+    onMounted( async ()  => {
+        /*
+        const baseUrl = 'http://localhost:7000';
+        let TripListResponse = await axios.get (baseUrl + '/v1/Booking' );
+        let TripList = TripListResponse.data;
+        console.log(`trip list ${JSON.stringify(TripList)}`);
+        */
+    })
+</script>
 <script>
 export default {
   name: 'Booking-Item',
+  data(){
+    return {
+        TripList : []
+    }
+  },
+  async created(){
+    await this.getTripList();
+  },
+  methods: {
+    async getTripList(){
+        const baseUrl = 'http://localhost:7000';
+        let TripListResponse = await axios.get (baseUrl + '/v1/Booking' );
+        this.TripList = TripListResponse.data;
+        console.log(`trip list ${JSON.stringify(this.TripList)}`);
+    }
+  },
   components: {}
 }
 </script>
