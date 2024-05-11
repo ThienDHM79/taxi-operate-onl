@@ -52,7 +52,7 @@ const app = Vue.createApp(
                 this.notification = "Driver accepted";
                 this.driverstatus = "busy";
                 this.tripstatus="driveraccepted"
-                socket.emit('engage', {
+                socket.timeout(5000).emit('engage', {
                     tripid: this.tripid,
                     driverid: 1,
                     tripstatus: this.tripstatus,

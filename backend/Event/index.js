@@ -13,12 +13,13 @@ const io = new Server({
 //when a request come to establish web socket
 io.on( "connection", (socket) => {
     console.log('socket server started');
+    // broadcast to new request to client
+    socket.on('new', (data) => {
+        socket.broadcast.emit('request', data);
+    })
     //response on user frontend click emit event
     socket.on('engage', (tripdata) => {
-        const tripid = tripdata.tripid;
-        //update db for trip, engagement, driver
-        socket.emit('cancel', `cancel on ${new Date()}`);//also send likeupdate
-        //socket.broadcast.emit( 'request', 'request 1'); //broad cast to all othe users
+        console.log(`socket server ${JSON.stringify(tripdata)}`)
     });
 });
 

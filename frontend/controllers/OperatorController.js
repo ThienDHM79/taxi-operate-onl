@@ -55,7 +55,7 @@ controller.create= async( req, res, next) => {
             const socket = io(`http://127.0.0.1:3000`);
             socket.on( 'connect', () => {
                 console.log('connected');
-                socket.broadcast.emit('request', {
+                socket.emit('new', {
                     "tripid":resp.data.tripid, 
                     "tripdetails": resp.data.log.trip
                 });

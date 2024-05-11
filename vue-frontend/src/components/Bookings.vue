@@ -34,17 +34,17 @@
                                     <td>61</td>
                                     <td>Edinburgh</td>
                                     <td>
-                                        <button type="button" class="btn btn-danger btn-sm px-3">
+                                        <button type="button" class="btn btn-danger btn-sm p-3">
                                         <i class="fas fa-times"></i>
                                         </button>
                                     </td>
                                     </tr>
                                     <!-- update to list component use v-bind v-for-->
-                                    <tr v-for="trip in TripList">
+                                    <tr v-for="trip in TripList" :key="trip.id">
                                     <td>{{trip.customername}}</td>
                                     <td>{{trip.customerphone}}</td>
                                     <td>{{trip.taxitype}}</td>
-                                    <td>{{trip.status}}</td>
+                                    <td>{{trip.tripstatus}}</td>
                                     <td>
                                         <button type="button" class="btn btn-danger btn-sm px-3">
                                         <i class="fas fa-times"></i>
@@ -62,40 +62,44 @@
                 </div>
                 </div>
                 <div class="container text-danger">
+                    {{ updatedTripEvent }}
                 </div>
             </section>
         </div>
     </div>
 </template>
-<script setup>
-    import axios from 'axios';
-    import { onMounted, data } from 'vue';
-    onMounted( async ()  => {
-        /*
-        const baseUrl = 'http://localhost:7000';
-        let TripListResponse = await axios.get (baseUrl + '/v1/Booking' );
-        let TripList = TripListResponse.data;
-        console.log(`trip list ${JSON.stringify(TripList)}`);
-        */
-    })
-</script>
 <script>
+import axios from 'axios'
+import { socket, state } from '@/socket'
+// remove hot reload
+socket.off()
 export default {
   name: 'Booking-Item',
-  data(){
+  data () {
     return {
-        TripList : []
+      TripList: [],
+      TripEventList: []
     }
   },
-  async created(){
-    await this.getTripList();
+  mounted () {
+    const SocketIOClient = document.createElement('script')
+    SocketIOClient.setAttribute('src', 'https://cdn.socket.io/4.5.4/socket.io.min.js')
+    document.head.appendChild(SocketIOClient)
+  },
+  async created () {
+    await this.getTripList()
+  },
+  computed: {
+    updatedTripEvent () {
+      console.log(`listened to trip ${state.tripEvents}`)
+      return state.tripEvents
+    }
   },
   methods: {
-    async getTripList(){
-        const baseUrl = 'http://localhost:7000';
-        let TripListResponse = await axios.get (baseUrl + '/v1/Booking' );
-        this.TripList = TripListResponse.data;
-        console.log(`trip list ${JSON.stringify(this.TripList)}`);
+    async getTripList () {
+      const baseUrl = 'http://localhost:7000'
+      const TripListResponse = await axios.get(baseUrl + '/v1/Booking')
+      this.TripList = TripListResponse.data
     }
   },
   components: {}
